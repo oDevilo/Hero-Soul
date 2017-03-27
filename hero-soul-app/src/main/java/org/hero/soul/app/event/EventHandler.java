@@ -1,17 +1,22 @@
 package org.hero.soul.app.event;
 
+/**
+ * 一个需要监听的对象绑定一个事件处理器
+ * @author Devil
+ *
+ */
 public class EventHandler {
-    private static Event event;
+    private Event event;
 
-    public static void excuteEvent(int key) {
+    public void excuteEvent(int key) {
         event.excute(key);
     }
 
-    public static Event getEvent() {
+    public Event getEvent() {
         return event;
     }
 
-    public static void setEvent(Event event) {
-        EventHandler.event = event;
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }
