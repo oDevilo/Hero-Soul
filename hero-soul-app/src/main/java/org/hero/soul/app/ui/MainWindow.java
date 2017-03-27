@@ -4,22 +4,30 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import org.hero.soul.app.event.PrintHandler;
-import org.hero.soul.app.ui.enums.LayoutEnum;
+import org.hero.soul.app.constant.LayoutEnum;
+import org.hero.soul.app.event.EventHandler;
+import org.hero.soul.app.event.option.Option;
+import org.hero.soul.app.handler.PrintHandler;
 
 public class MainWindow extends JFrame {
     
     private static final long serialVersionUID = -7087676010480993430L;
     public static JTextArea textArea = new JTextArea();
-    String[] options;
+    static List<Option> options;
+    
+    public static void init(){
+        new MainWindow();
+    }
+    
     public MainWindow() {
         super("末世日记");
-        this.setBounds(LayoutEnum.FRAME.getX(), LayoutEnum.FRAME.getY(), LayoutEnum.FRAME.getWidth(), LayoutEnum.FRAME.getHeight());
+        this.setBounds(LayoutEnum.WINDOW.getX(), LayoutEnum.WINDOW.getY(), LayoutEnum.WINDOW.getWidth(), LayoutEnum.WINDOW.getHeight());
         this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -48,7 +56,7 @@ public class MainWindow extends JFrame {
             }
             
             public void keyPressed(KeyEvent e) {
-                
+                EventHandler.excuteEvent(e.getKeyCode());
             }
         });
         this.requestFocus(); // 将焦点定位到此窗口，否则按钮监听无效
@@ -56,10 +64,13 @@ public class MainWindow extends JFrame {
         this.setVisible(true);
     }
     
-    public void doOption(String[] options){
-        this.options = options;
-        textArea.append(PrintHandler.getOptions(new String[]{"新游戏", "继续游戏", "设置", "退出游戏"}) + "\n");
-        
+    public static void doOption(List<Option> options){
+        MainWindow.options = options;
+        String[] texts = new String[options.size()];
+        for (int i = 0; i < options.size(); i++) {
+            texts[i] = options.get(i).getText();
+        }
+        textArea.append(PrintHandler.getOptions(texts) + "\n");
     }
 
 }

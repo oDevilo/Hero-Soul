@@ -1,13 +1,11 @@
-package org.hero.soul.app.ui.enums;
+package org.hero.soul.app.constant;
 
 /**
  * 用于定义尺寸的位置的枚举
  */
 public enum LayoutEnum {
-    FRAME(0, 0, 850, 700, "框架"),    // FRAME宽800高600,使用时需减去对应部分
-    TALK_AREA(20,0,(FRAME.getWidth()-5)/2,(FRAME.getHeight()-100)/2,"文本显示区域"),
-    SCENE(0,0,10,FRAME.getHeight()-100,"互动场景"),
-    SELECT_BUTTON_AREA(TALK_AREA.getX(),TALK_AREA.getHeight(),TALK_AREA.getWidth(),FRAME.getHeight()-100-TALK_AREA.getHeight(),"用户选择按钮区域")
+    WINDOW(200, 20, 850, 700, "框架"),    // FRAME宽800高600,使用时需减去对应部分
+    TALK_AREA(10, 10, WINDOW.getWidth() - 40, WINDOW.getHeight() - 70, "文本显示区域"),
     ;
     private int x;
     private int y;

@@ -1,14 +1,10 @@
-package org.hero.soul.app.event;
+package org.hero.soul.app.handler;
 
 public class PrintHandler {
     static String tab = "    ";
     static String select = "  ->";
     static int s = 0;
     static String point = ".";
-
-    public static void main(String[] args) {
-        System.out.println(getOptions(new String[] { "1", "2", "3", "4", "5" }));
-    }
 
     public static String getOptions(String[] options) {
         StringBuffer sb = new StringBuffer();
@@ -21,11 +17,11 @@ public class PrintHandler {
         return sb.toString();
     }
     
-    public void turnLeft(){
+    public static void turnLeft(){
         s--;
     }
     
-    public void turnRight(){
+    public static void turnRight(){
         s++;
     }
 }
