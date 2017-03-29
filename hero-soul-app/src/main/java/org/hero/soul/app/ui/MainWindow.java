@@ -76,12 +76,21 @@ public class MainWindow extends JFrame {
     }
 
     /**
-     * 改变文本框内容
+     * 替换文本框内容
      * 
      * @param text
      */
     public static void changeText(String text) {
         textArea.setText(text);
+    }
+
+    /**
+     * 文本框追加
+     * 
+     * @param text
+     */
+    public static void appendText(String text) {
+        textArea.append(text);
     }
 
 }

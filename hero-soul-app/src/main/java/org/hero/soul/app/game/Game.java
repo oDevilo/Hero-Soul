@@ -1,12 +1,9 @@
 package org.hero.soul.app.game;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.hero.soul.app.event.EventHandler;
 import org.hero.soul.app.event.option.Option;
 import org.hero.soul.app.event.option.OptionEvent;
-import org.hero.soul.app.event.response.NewGameResponse;
 import org.hero.soul.app.ui.MainWindow;
 import org.hero.soul.model.career.Warrior;
 import org.hero.soul.model.enemy.Crawler;
@@ -28,29 +25,10 @@ public class Game {
         user = new Warrior();
         monster = new Crawler();
         MainWindow.init();
-        List<Option> options = getMenuOptions();
+        List<Option> options = MenuOptions.getMenuOptions();
         MainWindow.addEvent(new OptionEvent(options));
     }
     
-    // 菜单
-    public List<Option> getMenuOptions(){
-        List<Option> options = new ArrayList<Option>();
-        Option newGame = new Option();
-        newGame.setText("新游戏");
-        newGame.setEvent(new NewGameResponse());
-        options.add(newGame);
-        Option loadGame = new Option();
-        loadGame.setText("继续游戏");
-        options.add(loadGame);
-        Option setting = new Option();
-        setting.setText("设置");
-        options.add(setting);
-        Option endGame = new Option();
-        endGame.setText("退出游戏");
-        options.add(endGame);
-        return options;
-    }
-
 //    public static void startGame() {
 //        int userProgressBar = initProgressBar(user.getSpd(), monster.getSpd());
 //        int monsterProgressBar = initProgressBar(user.getSpd(), monster.getSpd());
