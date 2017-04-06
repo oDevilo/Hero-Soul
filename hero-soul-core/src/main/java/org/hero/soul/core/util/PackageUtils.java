@@ -18,7 +18,7 @@ public class PackageUtils {
     }
 
     /**
-     * 将当前路径转换成系统匹配的路径后再获取包下所有类名
+     * 将当前路径转换成系统匹配的路径后再获取包下所有类
      */
     public static Class[] getClazzsBySystemPath(String oldPath) {
         return getClazzs(getSystemPath(oldPath));
