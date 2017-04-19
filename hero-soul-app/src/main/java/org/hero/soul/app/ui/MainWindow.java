@@ -12,7 +12,15 @@ import javax.swing.JTextArea;
 import org.hero.soul.app.constant.LayoutEnum;
 import org.hero.soul.app.event.Event;
 import org.hero.soul.app.event.EventHandler;
+import org.hero.soul.core.util.ThreadUtils;
 
+/**
+ * 
+ * 游戏界面
+ * 
+ * @author Devil
+ *
+ */
 public class MainWindow extends JFrame {
 
     private static final long serialVersionUID = -7087676010480993430L;
@@ -82,6 +90,28 @@ public class MainWindow extends JFrame {
      */
     public static void changeText(String text) {
         textArea.setText(text);
+    }
+
+    /**
+     * 每隔一段时间连续输出文本
+     * 
+     * @param texts
+     */
+    public static void changeText(String[] texts) {
+        /**
+         * 需要新起一个线程，否则Thread.sleep则选择的是主线程 这样，屏幕会停顿x秒后直接输出所有的信息
+         */
+        new Thread(new Runnable() {
+            public void run() {
+                textArea.setText(texts[0]);
+                ThreadUtils.sleep(1000);
+                for (int i = 1; i < texts.length; i++) {
+                    textArea.append(texts[i]);
+                    ThreadUtils.sleep(1000);
+                }
+
+            }
+        }).start();
     }
 
     /**
