@@ -13,7 +13,7 @@ public class NewGameResponse implements ResponseEvent {
 
     @Override
     public void excute(int key) {
-        // 加载并显示开头的独白信息
+        // TODO 加载并显示开头的独白信息
         String[] texts = new String[] { "新的游戏开始了\n", "你将在这里经历你的一生\n" };
         MainWindow.changeText(texts);
 
@@ -41,7 +41,7 @@ public class NewGameResponse implements ResponseEvent {
         Game.map.put(city, 3, 3);
 
         // 哥布林部落
-        MapEntity<Tribe<Goblin>> goblinTribe = new MapEntity<Tribe<Goblin>>("goblinTribe", new Tribe<Goblin>());
+        MapEntity<Tribe<Goblin>> goblinTribe = new MapEntity<Tribe<Goblin>>("goblinTribe", new Tribe<Goblin>(Goblin.class));
         // TODO 根据环境因素，初始化部落的人员
         Game.map.put(goblinTribe, 6, 6);
         
