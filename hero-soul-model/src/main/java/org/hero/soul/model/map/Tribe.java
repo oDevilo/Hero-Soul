@@ -71,38 +71,38 @@ public class Tribe<T extends Entity<T>> {
             return;
         }
 
-        int fMapSize = femaleList.size();
-        for (int j = 0; j < fMapSize; j++) {
-            int femaleId = RandomUtils.nextInt(femaleList.size());
-            if (RandomUtils.nextInt(maxPossible) <= femaleList.get(femaleId).getPossible()) {
-                T mother = femaleList.get(femaleId);
-                int maleId = RandomUtils.nextInt(maleList.size());
-                T father = maleList.get(maleId);
-                // TODO 多胞胎?
-                T kid = clazz.newInstance();
-                kid.setFather(father);
-                kid.setMother(mother);
-                kid.setId(father.getId() + mother.getId());
-                kid.setSex(maleId % 2 + 1);
-                
-                List<T> kids = null;
-                if (mother.getKids() == null || mother.getKids().isEmpty()) {
-                    kids = new ArrayList<T>();
-                    mother.setKids(kids);
-                } else {
-                    kids = mother.getKids();
-                }
-                kids.add(kid);
-                
-                if (maleId % 2 + 1 == 1) {
-                    maleMap.put(father.getId() + mother.getId(), kid);
-                } else {
-                    femaleMap.put(father.getId() + mother.getId(), kid);
-                }
+        int fListSize = femaleList.size(); // 可进行繁殖的雌性数组大小
+        for (int i = 0; i < fListSize; i++) {
+            if (RandomUtils.nextInt(maxPossible) > femaleList.get(i).getPossible()) // 如果未生育可能性满足要求
+                return;
 
-                
+            T mother = femaleList.get(i);
+            int maleId = RandomUtils.nextInt(maleList.size() * 100) / 100;
+            T father = maleList.get(maleId);
+            // TODO 多胞胎?
+            T kid = clazz.newInstance();
+            kid.setFather(father);
+            kid.setMother(mother);
+            kid.setId(father.getId() + mother.getId());
+            kid.setSex(maleId % 2 + 1);
+
+            List<T> kids = null;
+            if (mother.getKids() == null || mother.getKids().isEmpty()) {
+                kids = new ArrayList<T>();
+                mother.setKids(kids);
+            } else {
+                kids = mother.getKids();
             }
-            femaleList.remove(femaleId);
+            kids.add(kid);
+
+            if (maleId % 2 + 1 == 1) {
+                System.out.println("put male father:" + father.getId() + " mother:" + mother.getId());
+                maleMap.put(father.getId() + mother.getId() + "i" + maleMap.size(), kid);
+            } else {
+                System.out.println("put female father:" + father.getId() + " mother:" + mother.getId());
+                femaleMap.put(father.getId() + mother.getId()+ "i" + femaleMap.size(), kid);
+            }
+
         }
 
     }

@@ -97,7 +97,7 @@ public class MainWindow extends JFrame {
      * 
      * @param texts
      */
-    public static void changeText(String[] texts) {
+    public static void changeText(final String[] texts) {
         /**
          * 需要新起一个线程，否则Thread.sleep则选择的是主线程 这样，屏幕会停顿x秒后直接输出所有的信息
          */

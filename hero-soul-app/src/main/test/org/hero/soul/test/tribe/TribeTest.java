@@ -1,8 +1,11 @@
 package org.hero.soul.test.tribe;
 
+import org.hero.soul.core.util.RandomUtils;
 import org.hero.soul.model.enemy.Goblin;
 import org.hero.soul.model.map.Tribe;
 import org.junit.Test;
+
+import java.util.Random;
 
 public class TribeTest {
     @Test
@@ -42,12 +45,29 @@ public class TribeTest {
 
         for (int i = 0; i < 36500; i++) {
             if (i % Goblin.breedCycle == 0) {
-                tribe.print();
                 tribe.breed();
-                System.out.println("====================================" + i);
             }
             tribe.liveUp();
         }
+        tribe.print();
 
     }
+
+    @Test
+    public void randDouble() {
+        for (int i = 0; i < 36500; i++) {
+            Random random = new Random();
+            double fe = random.nextDouble();
+            System.out.println(fe);
+        }
+    }
+
+    @Test
+    public void randInt() {
+        for (int i = 0; i < 36500; i++) {
+            int v = RandomUtils.nextInt(1000);
+            System.out.println(v);
+        }
+    }
+
 }
