@@ -1,4 +1,4 @@
-package org.hero.soul.model.enemy;
+package org.hero.soul.model.race;
 
 /**
  * 哥布林
@@ -7,16 +7,24 @@ package org.hero.soul.model.enemy;
  *
  */
 public class Goblin extends Entity<Goblin> {
-    private String name;
+    private String name = "goblin";
     private String type;
     public static int breedCycle = 30; // 繁殖周期(天)
-    public static int birthTime = 90; // 90天生育
+    public static int minBirthTime = 80; // 最小生育天数
+    public static int maxBirthTime = 100; // 最大生育天数
     public static int minBreedAge = 12; // 最小繁殖年龄
     public static int maxBreedAge = 30; // 最大繁殖年龄
 
     @Override
     public String toString() {
-        return "Goblin [id=" + id + ", name=" + name + ", type=" + type + ", age=" + age + ", live=" + live + ", sex=" + sex + "]";
+        return "Goblin{" +
+                "name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", id='" + id + '\'' +
+                ", age=" + age +
+                ", birthDay=" + birthDay +
+                ", live=" + live +
+                '}';
     }
 
     public int getLive() {

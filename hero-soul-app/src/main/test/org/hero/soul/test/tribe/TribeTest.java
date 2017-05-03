@@ -1,15 +1,18 @@
 package org.hero.soul.test.tribe;
 
 import org.hero.soul.core.util.RandomUtils;
-import org.hero.soul.model.enemy.Goblin;
-import org.hero.soul.model.map.Tribe;
+import org.hero.soul.model.race.Goblin;
+import org.hero.soul.model.scene.DateDirector;
+import org.hero.soul.model.scene.Tribe;
 import org.junit.Test;
 
 import java.util.Random;
+import java.util.UUID;
 
 public class TribeTest {
+
     @Test
-    public void test() throws InstantiationException, IllegalAccessException {
+    public void test() throws InstantiationException, IllegalAccessException, InterruptedException {
         // 哥布林部落
         Tribe<Goblin> tribe = new Tribe<Goblin>(Goblin.class);
         Goblin g1 = new Goblin();
@@ -27,11 +30,6 @@ public class TribeTest {
         g3.setSex(1);
         g4.setSex(2);
         g5.setSex(1);
-        g1.setAge(12);
-        g2.setAge(12);
-        g3.setAge(12);
-        g4.setAge(12);
-        g5.setAge(12);
         g2.setPossible(8000);
         g3.setPossible(8000);
         g4.setPossible(8000);
@@ -47,9 +45,9 @@ public class TribeTest {
                 tribe.breed();
             }
             tribe.liveUp();
+            DateDirector.updateTime();
         }
         tribe.print();
-
     }
 
     @Test
@@ -67,6 +65,11 @@ public class TribeTest {
             int v = RandomUtils.nextInt(1000);
             System.out.println(v);
         }
+    }
+
+    @Test
+    public void uuid() {
+        System.out.println(UUID.randomUUID().toString());
     }
 
 }

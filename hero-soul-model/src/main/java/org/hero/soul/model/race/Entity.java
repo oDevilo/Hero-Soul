@@ -1,15 +1,18 @@
-package org.hero.soul.model.enemy;
+package org.hero.soul.model.race;
 
+import org.hero.soul.model.scene.DateDirector;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-import org.hero.soul.core.constant.DateConstants;
-
-public class Entity<T> {
+public abstract class Entity<T> implements Race {
     protected String id;
     protected T father;
     protected T mother;
     protected List<T> kids;
-    protected int age; // 年龄
+    protected int age = 0; // 目前按公历的计算方式
+    protected Date birthDay = DateDirector.NOW; // 出生日期
     protected int live = 0; // 按天计算的时间
     protected int sex; // 0.无性 1.男 2.女
     protected int possible = 5000; // 生育可能
@@ -32,7 +35,12 @@ public class Entity<T> {
 
     public int liveUp() {
         live++;
-        age = live / DateConstants.YEAR;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(birthDay);
+        int tempAge = DateDirector.getTypeTime(Calendar.YEAR) - calendar.get(Calendar.YEAR);
+        if (DateDirector.getTypeTime(Calendar.MONTH) - calendar.get(Calendar.MONTH) > 0 || DateDirector.getTypeTime(Calendar.DAY_OF_MONTH) - calendar.get(Calendar.DAY_OF_MONTH) > 0)
+            age = tempAge + 1;
+
         return live;
     }
 
@@ -46,11 +54,6 @@ public class Entity<T> {
 
     public int getAge() {
         return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-        this.live = age * DateConstants.YEAR;
     }
 
     public T getFather() {

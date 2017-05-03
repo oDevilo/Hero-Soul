@@ -1,4 +1,4 @@
-package org.hero.soul.model.map;
+package org.hero.soul.model.scene;
 
 /**
  * 城墙，一般是无用的

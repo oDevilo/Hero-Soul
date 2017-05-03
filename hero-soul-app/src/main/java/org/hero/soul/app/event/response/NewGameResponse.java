@@ -2,12 +2,12 @@ package org.hero.soul.app.event.response;
 
 import org.hero.soul.app.game.Game;
 import org.hero.soul.app.ui.MainWindow;
-import org.hero.soul.model.enemy.Goblin;
-import org.hero.soul.model.map.City;
-import org.hero.soul.model.map.Gate;
-import org.hero.soul.model.map.MapEntity;
-import org.hero.soul.model.map.Tribe;
-import org.hero.soul.model.map.Wall;
+import org.hero.soul.model.race.Goblin;
+import org.hero.soul.model.scene.City;
+import org.hero.soul.model.scene.Gate;
+import org.hero.soul.model.scene.MapEntity;
+import org.hero.soul.model.scene.Tribe;
+import org.hero.soul.model.scene.Wall;
 
 public class NewGameResponse implements ResponseEvent {
 

@@ -1,5 +1,10 @@
-package org.hero.soul.model.map;
+package org.hero.soul.model.scene;
 
+/**
+ * 地图元素对象
+ *
+ * @param <T>
+ */
 public class MapEntity<T> {
     private MapEntity<?> top;
     private MapEntity<?> bottom;

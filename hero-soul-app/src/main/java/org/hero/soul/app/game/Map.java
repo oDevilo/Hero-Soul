@@ -1,6 +1,6 @@
 package org.hero.soul.app.game;
 
-import org.hero.soul.model.map.MapEntity;
+import org.hero.soul.model.scene.MapEntity;
 
 /**
  * 地图
