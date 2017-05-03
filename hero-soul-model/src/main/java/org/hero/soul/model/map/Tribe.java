@@ -72,12 +72,13 @@ public class Tribe<T extends Entity<T>> {
         }
 
         int fListSize = femaleList.size(); // 可进行繁殖的雌性数组大小
+        int mListSize = maleList.size();
         for (int i = 0; i < fListSize; i++) {
             if (RandomUtils.nextInt(maxPossible) > femaleList.get(i).getPossible()) // 如果未生育可能性满足要求
                 return;
 
             T mother = femaleList.get(i);
-            int maleId = RandomUtils.nextInt(maleList.size() * 100) / 100;
+            int maleId = RandomUtils.nextInt(mListSize);
             T father = maleList.get(maleId);
             // TODO 多胞胎?
             T kid = clazz.newInstance();

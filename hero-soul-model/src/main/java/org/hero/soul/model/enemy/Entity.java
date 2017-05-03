@@ -11,8 +11,8 @@ public class Entity<T> {
     protected List<T> kids;
     protected int age; // 年龄
     protected int live = 0; // 按天计算的时间
-    protected int sex; // 1.男 2.女
-    protected int possible; // 生育可能
+    protected int sex; // 0.无性 1.男 2.女
+    protected int possible = 5000; // 生育可能
 
     public int getPossible() {
         return possible;

@@ -32,7 +32,6 @@ public class TribeTest {
         g3.setAge(12);
         g4.setAge(12);
         g5.setAge(12);
-        g1.setPossible(8000);
         g2.setPossible(8000);
         g3.setPossible(8000);
         g4.setPossible(8000);
