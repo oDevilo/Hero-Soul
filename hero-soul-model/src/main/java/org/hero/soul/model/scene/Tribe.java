@@ -1,6 +1,7 @@
 package org.hero.soul.model.scene;
 
 import java.util.*;
+import java.util.concurrent.*;
 
 import org.hero.soul.core.util.RandomUtils;
 import org.hero.soul.model.race.Entity;
@@ -16,6 +17,10 @@ public class Tribe<T extends Entity<T>> {
     private Map<String, T> femaleMap = new HashMap<String, T>(); // string为ID，唯一标识，雌性
     private Map<String, T> asexualMap = new HashMap<String, T>(); // string为ID，唯一标识，无性
     private Class<T> clazz;
+    private int poolSize = 2;
+    private ThreadPoolExecutor pool = new ThreadPoolExecutor(poolSize, poolSize,
+            0L, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<Runnable>());
 
     private int maxBreedPossible = 10000; // 最大繁殖概率
 
@@ -43,7 +48,7 @@ public class Tribe<T extends Entity<T>> {
      */
     public void breed() throws InstantiationException, IllegalAccessException {
         // 雄性
-        List<T> maleList = new ArrayList<T>();// 可以繁殖的对象
+        final List<T> maleList = new ArrayList<T>();// 可以繁殖的对象
         for (String key : maleMap.keySet()) {
             T t = maleMap.get(key);
             if (t.getAge() >= Goblin.minBreedAge && t.getAge() <= Goblin.maxBreedAge) {
@@ -68,6 +73,66 @@ public class Tribe<T extends Entity<T>> {
             return;
         }
 
+        final List<List<T>> femaleLists = new ArrayList<List<T>>();
+        int leng = femaleList.size() / poolSize;
+        int lim = leng + femaleList.size() % poolSize - 1;
+        int now = 0;
+        T[] femaleArr = (T[]) femaleList.toArray();
+        // 根据poolsize对可繁殖的雌性分组
+        for (int s = 0; s < poolSize; s++) {
+            List<T> tlist = Arrays.asList(Arrays.copyOfRange(femaleArr, now, lim));
+            femaleLists.add(tlist);
+
+            now += leng;
+            lim += leng;
+        }
+
+        pool.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    toBreed(maleList, femaleLists.get(0));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        pool.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    toBreed(maleList, femaleLists.get(1));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        pool.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    toBreed(maleList, femaleLists.get(2));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+    }
+
+    /**
+     * 开始繁殖
+     */
+    public void toBreed(List<T> maleList, List<T> femaleList) throws IllegalAccessException, InstantiationException {
         int fListSize = femaleList.size(); // 可进行繁殖的雌性数组大小
         int mListSize = maleList.size();
         for (int i = 0; i < fListSize; i++) {
@@ -112,7 +177,6 @@ public class Tribe<T extends Entity<T>> {
             kid.setId(uuid);
 
         }
-
     }
 
     /**
